@@ -1,0 +1,4 @@
+logging:
+  level:
+    ROOT: error
+    com.yo1000.demospringprofile.DemoSpringProfileApplicationTests: info
