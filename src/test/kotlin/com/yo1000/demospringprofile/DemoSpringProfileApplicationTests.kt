@@ -27,15 +27,21 @@ class DemoSpringProfileApplicationTests {
 
 	@Test
 	fun contextLoads() {
-		println(user.name)
+		println("""
+    		==========
+    		${user.name}
+    		==========
+		""".trimIndent())
 	}
 }
 
 class User(val name: String)
 
 @ConditionalOnExpression("""
-    "${'$'}{spring.profiles.active}" != "alice" &&
-    "${'$'}{spring.profiles.active}" != "bob"
+    '${'$'}{spring.profiles.active}' != 'alice' &&
+    '${'$'}{spring.profiles.active}' != 'allie' &&
+    '${'$'}{spring.profiles.active}' != 'elsie' &&
+    '${'$'}{spring.profiles.active}' != 'bob'
 """)
 //@Profile("default")
 @Configuration
@@ -44,7 +50,7 @@ class DefaultConfiguration {
 	fun user(): User = User("Anonymous")
 }
 
-@Profile("alice")
+@Profile("alice", "allie", "elsie")
 @Configuration
 class AliceConfiguration {
 	@Bean
